@@ -1,0 +1,8 @@
+coredns
+coredns.exe
+.env
+Corefile
+.DS_Store
+build/
+vendor/
+.idea/

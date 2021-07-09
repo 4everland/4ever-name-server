@@ -1,0 +1,27 @@
+version: "3.7"
+networks:
+  fns:
+    ipam:
+      config:
+        - subnet: ${NETWORK_SUBNET}
+services:
+  fns:
+    build: .
+    container_name: fns
+    depends_on:
+      - unbound
+    networks:
+      - fns
+    ports:
+      - ${FNS_PORT}:53/udp
+    restart: always
+    volumes:
+    - ${COREFILE}:/app/Corefile
+
+  unbound:
+    image: klutchell/unbound
+    container_name: unbound
+    networks:
+      fns:
+        ipv4_address: ${UNBOUND_IPV4_ADDR}
+    restart: always
